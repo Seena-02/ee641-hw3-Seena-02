@@ -1,0 +1,11 @@
+{
+  "baseline": 0.001,
+  "layer0_head0": 0.0005,
+  "layer0_head1": 0.0005,
+  "layer0_head2": 0.0005,
+  "layer0_head3": 0.001,
+  "layer1_head0": 0.0005,
+  "layer1_head1": 0.001,
+  "layer1_head2": 0.0005,
+  "layer1_head3": 0.0005
+}
