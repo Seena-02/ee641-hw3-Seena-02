@@ -424,6 +424,31 @@ def main():
         model, test_loader, args.device, args.num_samples
     )
 
+    print("Saving attention heatmaps...")
+
+    encoder_attn = attention_data['encoder_attention']   # list per layer
+    inputs = attention_data['inputs']
+    targets = attention_data['targets']
+
+    # convert first sample tokens to strings
+    input_tokens = [str(x) for x in inputs[0]]
+    target_tokens = [str(x) for x in targets[0]]
+
+    for layer_idx, layer_attn in enumerate(encoder_attn):
+        # layer_attn: list of attn tensors for each batch → take first
+        attn = layer_attn[0].numpy()   # shape: [heads, seq_len, seq_len]
+
+        save_file = output_dir / 'attention_patterns' / f'encoder_layer_{layer_idx}.png'
+        
+        visualize_attention_pattern(
+            attn,
+            input_tokens=input_tokens,
+            output_tokens=input_tokens,
+            title=f"Encoder Layer {layer_idx} Attention",
+            save_path=save_file
+        )
+
+
     # Analyze head specialization
     head_stats = analyze_head_specialization(
         attention_data, output_dir / 'head_analysis'
